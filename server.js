@@ -5,7 +5,7 @@ const path = require('path');
 
 const currentDate = require('./module/utils.js').getDate();
 http.createServer((req, res) => {
-    const parsedUrl = url.parse(req.url, true);
+    const parsedUrl = url.parse(req.url, true); // true to get query as object
 
     if (parsedUrl.pathname === '/getDate/') {
         const name = parsedUrl.query.name || "Guest";
@@ -24,7 +24,7 @@ http.createServer((req, res) => {
         // to append/text?= context
         const textToWrite = parsedUrl.query.text + '\n';
         
-        fs.appendFile('file.txt', textToWrite, (err) => {
+        fs.appendFile('taylor.txt', textToWrite, (err) => {
             if (err) {
                 res.writeHead(500, { 'Content-Type': 'text/plain' });
                 res.end('Failed to write to the file.');
@@ -34,7 +34,7 @@ http.createServer((req, res) => {
             res.writeHead(200, { 'Content-Type': 'text/plain' });
             res.end('Text appended successfully.');
         });
-    } else if (parsedUrl.pathname.startsWith('/COMP4537/labs/3/readFile/')) {
+    } else if (parsedUrl.pathname.startsWith('/COMP4537/labs/3/readFile/')) { // read file, 
         const filename = parsedUrl.pathname.split('/COMP4537/labs/3/readFile/')[1];
         const filePath = path.join(__dirname, filename);
 
